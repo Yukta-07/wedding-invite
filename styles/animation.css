@@ -1,0 +1,178 @@
+/* --- SPLASH SCREEN --- */
+.splash-screen {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100vh;
+    background: var(--bg-primary);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 1s ease;
+}
+.splash-screen.fade-out {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+.hidden { display: none !important; }
+
+/* --- SCROLL REVEAL CLASSES --- */
+.reveal-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.9s cubic-bezier(0.5, 0, 0, 1);
+}
+.reveal-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: all 0.9s cubic-bezier(0.5, 0, 0, 1);
+}
+.reveal-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: all 0.9s cubic-bezier(0.5, 0, 0, 1);
+}
+.reveal-active {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+/* ============================================================
+   DECORATIVE SCROLL LAYER
+   Sequence:
+   1. Entry  -> side flowers appear from left/right
+   2. Entry  -> gold particles start appearing
+   3. Scroll -> petals fall downward
+   4. Scroll -> flowers/leaves sway slightly
+   5. Scroll -> gold particles float across
+   ============================================================ */
+.decor-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
+    overflow: hidden;
+}
+
+/* --- Side flowers (entry) --- */
+.side-flower {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 1.4s ease, transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform, opacity;
+}
+.side-flower-left {
+    left: -40px;
+    transform: translate(-120%, -50%);
+}
+.side-flower-right {
+    right: -40px;
+    transform: translate(120%, -50%);
+}
+.side-flower .flower-bloom {
+    display: block;
+    font-size: 3.2rem;
+    filter: drop-shadow(0 6px 14px rgba(203, 148, 112, 0.35));
+}
+.side-flower .flower-leaf {
+    display: block;
+    font-size: 2rem;
+    margin-top: -6px;
+    transform-origin: bottom center;
+}
+/* Entry active state */
+.decor-layer.entry-active .side-flower-left {
+    opacity: 1;
+    transform: translate(0, -50%);
+}
+.decor-layer.entry-active .side-flower-right {
+    opacity: 1;
+    transform: translate(0, -50%);
+}
+
+/* --- Gold particles (entry + scroll float) --- */
+.gold-field {
+    position: absolute;
+    inset: 0;
+}
+.gold-particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #f7e08a 0%, #e6b84c 60%, rgba(230, 184, 76, 0) 100%);
+    box-shadow: 0 0 8px 2px rgba(247, 224, 138, 0.55);
+    opacity: 0;
+    will-change: transform, opacity;
+}
+/* Particles fade in on entry */
+.decor-layer.entry-active .gold-particle {
+    animation: gold-fade-in 1.2s ease forwards;
+}
+/* On scroll, particles drift across */
+.decor-layer.scroll-active .gold-particle {
+    animation: gold-float 6s ease-in-out infinite;
+}
+
+/* --- Falling petals (scroll) --- */
+.petal-field {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+.petal {
+    position: absolute;
+    top: -40px;
+    font-size: 1.15rem;
+    opacity: 0;
+    will-change: transform, opacity;
+    /* animation: petal-fall 8s cubic-bezier(0.22, 0.61, 0.36, 1) forwards; */
+}
+.decor-layer.scroll-active .petal {
+    animation-play-state: running;
+}
+
+/* ============================================================
+   KEYFRAMES
+   ============================================================ */
+@keyframes gold-fade-in {
+    0%   { opacity: 0; transform: translateY(10px) scale(0.6); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes gold-float {
+    0%   { transform: translate(0, 0) scale(1); opacity: 0.9; }
+    25%  { transform: translate(18px, -22px) scale(1.1); opacity: 1; }
+    50%  { transform: translate(-14px, -46px) scale(0.95); opacity: 0.8; }
+    75%  { transform: translate(12px, -70px) scale(1.05); opacity: 0.9; }
+    100% { transform: translate(-8px, -96px) scale(0.9); opacity: 0; }
+}
+@keyframes petal-fall {
+    0%   { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+    10%  { opacity: 0.95; }
+    30%  { transform: translateY(20vh) translateX(18px) rotate(40deg); }
+    55%  { transform: translateY(55vh) translateX(-10px) rotate(120deg); }
+    80%  { transform: translateY(90vh) translateX(22px) rotate(220deg); }
+    100% { transform: translateY(115vh) translateX(-12px) rotate(320deg); opacity: 0.8; }
+}
+@keyframes leaf-sway {
+    0%, 100% { transform: rotate(-8deg); }
+    50%      { transform: rotate(10deg); }
+}
+/* Leaves sway gently once scrolling begins */
+.decor-layer.scroll-active .flower-leaf {
+    animation: leaf-sway 3.5s ease-in-out infinite;
+    transform-origin: bottom center;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .decor-layer .gold-particle,
+    .decor-layer .petal,
+    .decor-layer .flower-leaf {
+        animation: none !important;
+    }
+    .side-flower {
+        transition: none;
+    }
+}
