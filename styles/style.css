@@ -251,7 +251,7 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; }
     margin-bottom: 7.25rem;
 }
 .hero-title { font-family: var(--font-script); font-size: clamp(2.8rem, 7vw, 4.5rem); line-height: 0.95; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
-.hero-parent { font-family: var(--font-serif); font-size: clamp(0.75rem, 1.8vw, 1rem); letter-spacing: 0.04em; color: #806047; }
+.hero-parent { font-family: var(--font-serif); font-size: clamp(0.75rem, 1.8vw, 1rem); letter-spacing: 0.04em; color: #5d3829; text-shadow: 0 1px 1px rgba(255, 248, 232, 0.55); }
 .hero-with { font-family: var(--font-serif); font-size: clamp(0.8rem, 1.8vw, 1rem); font-weight: 600; margin: 0.65rem 0; color: #6d4932; }
 .hero-date, .hero-location { font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 5px; color: #6d4932; }
 
