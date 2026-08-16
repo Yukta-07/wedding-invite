@@ -95,6 +95,11 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; }
     .hero {
         background: #f4c8d5;
     }
+
+    /* Keep the desktop hero free of the navigation menu. */
+    .navbar {
+        display: none;
+    }
 }
 .navbar {
     display: flex;
@@ -602,6 +607,13 @@ footer .footer-details {
     .plan-card .flex { gap: 0.65rem; }
     .plan-card a { width: 100%; min-height: 40px; padding: 0.5rem 0.2rem; font-size: 0.6rem; white-space: nowrap; }
     .plan-card span { display: block; font-size: 0.52rem; line-height: 1.5; letter-spacing: 0.1em; }
+}
+
+@media (min-width: 769px) {
+    /* Add spacing between the planning cards on desktop only. */
+    #plan-evening .plan-grid {
+        gap: 2rem;
+    }
 }
 
 @media (max-width: 480px) {
