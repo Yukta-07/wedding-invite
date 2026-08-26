@@ -59,7 +59,7 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; }
 .hero {
     height: 100vh;
     background: linear-gradient(rgba(71, 43, 42, 0.28), rgba(71, 43, 42, 0.28)),
-                url('../assets/new-banner.webp') center center / cover no-repeat,
+                url('../assets/new-banner.png') center center / cover no-repeat,
                 radial-gradient(circle at 20% 20%, rgba(255, 244, 228, 0.85), transparent 24%),
                 radial-gradient(circle at 80% 12%, rgba(250, 223, 230, 0.35), transparent 20%),
                 linear-gradient(135deg, rgba(246, 211, 222, 0.92), rgba(245, 229, 213, 0.88));
